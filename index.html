@@ -175,7 +175,9 @@
       const names = tsv
         .split("\n")
         .slice(1)
-        .map((l) => line.split("\t")[1]);
+        .map((l) => l.split("\t")[1]);
+
+      el.innerHTML = "";
 
       for (const name of names) {
         const li = document.createElement("li");
