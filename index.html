@@ -73,7 +73,11 @@
       <div class="italic mb-16 mt-8">Список обновляется</div>
 
       <h1
-        style="font-family: 'M PLUS 1p', sans-serif; font-weight: 800; font-size: 2.7em;"
+        style="
+          font-family: 'M PLUS 1p', sans-serif;
+          font-weight: 800;
+          font-size: 2.7em;
+        "
         id="ja"
       >
         在日ロシア人からの公開状
@@ -167,13 +171,17 @@
         "https://docs.google.com/spreadsheets/d/1AIDqq2qHP7EGF4fNYWnH6cAer0GF6IZMvjiDUDIptKU/export\?format\=tsv"
       );
       const tsv = await res.text();
-      const names = [];
-      for (const line of tsv.split("\n").slice(1)) {
-        const [, name] = line.split("\t");
-        names.push("<li>" + name + "</li>");
-      }
       const el = document.getElementById("list");
-      el.innerHTML = names.join("\n");
+      const names = tsv
+        .split("\n")
+        .slice(1)
+        .map((l) => line.split("\t")[1]);
+
+      for (const name of names) {
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(name));
+        el.appendChild(li);
+      }
     </script>
   </body>
 </html>
